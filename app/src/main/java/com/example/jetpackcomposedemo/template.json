@@ -1,0 +1,49 @@
+{
+  "scene": {
+    "description": "Stylish restroom dressing area captured via mirror.",
+    "environment": "Warm wood-laminate stall doors and soft countertop reflections.",
+    "mood": "Shy-playful confidence; cozy 'Gamseong' (감성) aesthetic."
+  },
+  "aesthetic": {
+    "style": "Authentic smartphone mirror selfie.",
+    "look": "Warm interior color, gentle roll-off; minimal grain; filmic soft contrast."
+  },
+  "lighting": {
+    "description": "Ceiling LEDs providing warm ambience; add subtle front fill from mirror to open eye sockets; maintain realistic specular highlights."
+  },
+  "subject": {
+    "demographics": {
+      "ethnicity": "East Asian (Korean)",
+      "age": "adult",
+      "build": "Very slender, petite with defined waist."
+    },
+    "appearance": {
+      "hair": "Messy top-bun with full fringe; a few loose side strands.",
+      "skin": "Natural, dewy finish with preserved skin texture."
+    },
+    "pose": {
+      "type": "Mirror selfie, standing.",
+      "action": "Gentle smile with lips slightly pressed; left hand lightly lifting ruched hem; right hand holding phone.",
+      "framing": "Waist-up 3:4 vertical; slight downward camera angle; midriff visible."
+    },
+    "wardrobe": {
+      "top": "Asymmetrical olive-gray ruched one-shoulder top.",
+      "bottom": "Low-rise jeans with faux-fur waistband trim."
+    },
+    "accessories": {
+      "jewelry": "Thin bracelets, rings, and delicate hoop earrings.",
+      "phone": "Smartphone with black cat case featuring a pink bow (Hello-Kitty style)."
+    }
+  },
+  "props_in_scene": {
+    "background": "Wood-grain stall doors with verticals kept true; metal hinges subtly visible.",
+    "counter": "Keep any edge reflections soft and realistic."
+  },
+  "camera_technical": {
+    "requirements": "Correct mirror reversal; maintain natural body proportions; no duplicated phones/hands.",
+    "capture": "Smartphone wide lens ~24–26mm equiv, f/1.8 look, ISO ~250, 1/125s, WB 4200–4400K.",
+    "composition": "Subject centered with slight lean; keep fur texture readable; ensure phone and hand pose feel natural.",
+    "retouching": "Clean minor blemishes only; preserve fabric micro-wrinkles and fur fibers; avoid haloing.",
+    "avoid": "Warped doors, heavy vignettes, oversharpening, cartoon smoothing, text/watermarks."
+  }
+}

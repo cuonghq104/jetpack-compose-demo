@@ -1,0 +1,51 @@
+{
+  "scene": {
+    "description": "Dining room aboard the Cruise Ship, captured through a mirror selfie.",
+    "environment": "Wood-paneled ship interior with nautical decor — hanging lanterns, wooden beams, round ship windows showing the sea, and a large dining table with plates and mugs scattered around.",
+    "mood": "Lively, carefree, and adventurous — the atmosphere of a joyful pirate crew at sea."
+  },
+  "aesthetic": {
+    "style": "Authentic smartphone mirror selfie.",
+    "look": "Warm interior color, gentle roll-off; minimal grain; filmic soft contrast."
+  },
+  "lighting": {
+    "description": "Ceiling LEDs providing warm ambience; add subtle front fill from mirror to open eye sockets; maintain realistic specular highlights."
+  },
+  "subject": {
+    "demographics": {
+      "ethnicity": "Mexican",
+      "age": "young adult",
+      "build": "Lean and athletic with energetic posture."
+    },
+    "appearance": {
+      "hair": "Messy black hair with strands peeking out from under his straw hat.",
+      "skin": "Warm tan complexion with natural sheen; minimal retouching to retain lively character."
+    },
+    "pose": {
+      "type": "Mirror selfie, standing casually.",
+      "action": "Witty, wide happy grin with one hand holding the phone and the other making a peace sign; leaning slightly toward the mirror with relaxed confidence.",
+      "framing": "Waist-up 3:4 vertical shot; slightly off-center composition to include ship background."
+    },
+    "wardrobe": {
+      "top": "Open red shirt with casual pirate detailing suitable for a captain.",
+      "bottom": "Classic blue jeans with slightly rolled cuffs.",
+      "cloak": "Black cloak draped over shoulders, slightly flowing with a worn leather texture.",
+      "headgear": "Iconic straw hat sitting slightly tilted on his head."
+    },
+    "accessories": {
+      "jewelry": "Simple beaded bracelet on one wrist.",
+      "phone": "Smartphone with worn leather case, reflecting ship life aesthetic."
+    }
+  },
+  "props_in_scene": {
+    "background": "Wood-grain stall doors with verticals kept true; metal hinges subtly visible.",
+    "counter": "Keep any edge reflections soft and realistic."
+  },
+  "camera_technical": {
+    "requirements": "Correct mirror reversal; maintain natural body proportions; no duplicated phones/hands.",
+    "capture": "Smartphone wide lens ~24–26mm equiv, f/1.8 look, ISO ~250, 1/125s, WB 4200–4400K.",
+    "composition": "Subject centered with slight lean; keep fur texture readable; ensure phone and hand pose feel natural.",
+    "retouching": "Clean minor blemishes only; preserve fabric micro-wrinkles and fur fibers; avoid haloing.",
+    "avoid": "Warped doors, heavy vignettes, oversharpening, cartoon smoothing, text/watermarks."
+  }
+}
