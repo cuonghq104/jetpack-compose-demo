@@ -1,51 +1,47 @@
 {
   "scene": {
-    "description": "Dining room aboard the Cruise Ship, captured through a mirror selfie.",
-    "environment": "Wood-paneled ship interior with nautical decor — hanging lanterns, wooden beams, round ship windows showing the sea, and a large dining table with plates and mugs scattered around.",
-    "mood": "Lively, carefree, and adventurous — the atmosphere of a joyful pirate crew at sea."
+    "description": "Ultra-realistic portrait photograph of a real woman, not a digital painting, in High balcony of Highgarden overlooking the misty Reach coastline.",
+    "environment": "Marble balustrades entwined with blooming roses; the sea horizon faintly glows beneath morning haze.",
+    "mood": "Elegant, cunning, and alluring — beauty with hidden thorns."
   },
   "aesthetic": {
-    "style": "Authentic smartphone mirror selfie.",
-    "look": "Warm interior color, gentle roll-off; minimal grain; filmic soft contrast."
+    "style": "Realistic cinematic photography inspired by Game of Thrones — not illustration, not digital painting.",
+    "look": "Soft dawn palette with natural film-grade color; subtle lens bloom, realistic light diffusion, gentle contrast and authentic skin tone highlights."
   },
   "lighting": {
-    "description": "Ceiling LEDs providing warm ambience; add subtle front fill from mirror to open eye sockets; maintain realistic specular highlights."
+    "description": "Pale golden sunrise light filtering through silk curtains; warm side glow enhances skin tone and fabric shimmer."
   },
   "subject": {
     "demographics": {
-      "ethnicity": "Mexican",
-      "age": "young adult",
-      "build": "Lean and athletic with energetic posture."
+      "ethnicity": "Westerosi with Reach heritage",
+      "age": "23",
+      "build": "Slender and graceful, with confident posture and poised elegance."
     },
     "appearance": {
-      "hair": "Messy black hair with strands peeking out from under his straw hat.",
-      "skin": "Warm tan complexion with natural sheen; minimal retouching to retain lively character."
+      "hair": "Wavy strawberry-blonde cascading over bare shoulders.",
+      "skin": "Fair with soft sun-kissed warmth and delicate glow.",
+      "expression": "Playful smirk with eyes full of calculation and charm."
     },
     "pose": {
-      "type": "Mirror selfie, standing casually.",
-      "action": "Witty, wide happy grin with one hand holding the phone and the other making a peace sign; leaning slightly toward the mirror with relaxed confidence.",
-      "framing": "Waist-up 3:4 vertical shot; slightly off-center composition to include ship background."
+      "type": "Elegant seated pose.",
+      "action": "Sitting sideways on an ornate wooden chair carved with rose motifs; one hand holding a wine glass, the other gently gripping a half-unfolded map.",
+      "framing": "Three-quarter composition; balcony rail framing background; morning mist and sea visible beyond."
     },
     "wardrobe": {
-      "top": "Open red shirt with casual pirate detailing suitable for a captain.",
-      "bottom": "Classic blue jeans with slightly rolled cuffs.",
-      "cloak": "Black cloak draped over shoulders, slightly flowing with a worn leather texture.",
-      "headgear": "Iconic straw hat sitting slightly tilted on his head."
-    },
-    "accessories": {
-      "jewelry": "Simple beaded bracelet on one wrist.",
-      "phone": "Smartphone with worn leather case, reflecting ship life aesthetic."
+      "dress": "Sheer silk gown in dual layers — coral orange and ocean blue — symbolizing land and sea.",
+      "accessories": "Gold rose-chain belt, silver-threaded translucent cloak, compass pendant at her neck.",
+      "details": "Bare shoulders; light fabric flowing with breeze; subtle glint on jewelry."
     }
   },
   "props_in_scene": {
-    "background": "Wood-grain stall doors with verticals kept true; metal hinges subtly visible.",
-    "counter": "Keep any edge reflections soft and realistic."
+    "background": "Balcony view of the Reach, with faint outlines of ships near the horizon.",
+    "foreground": "Wine goblet and partially opened map with Tyrell seal; rose petals scattered on marble floor."
   },
   "camera_technical": {
-    "requirements": "Correct mirror reversal; maintain natural body proportions; no duplicated phones/hands.",
-    "capture": "Smartphone wide lens ~24–26mm equiv, f/1.8 look, ISO ~250, 1/125s, WB 4200–4400K.",
-    "composition": "Subject centered with slight lean; keep fur texture readable; ensure phone and hand pose feel natural.",
-    "retouching": "Clean minor blemishes only; preserve fabric micro-wrinkles and fur fibers; avoid haloing.",
-    "avoid": "Warped doors, heavy vignettes, oversharpening, cartoon smoothing, text/watermarks."
+    "requirements": "Natural proportions and graceful posture; realistic silk translucency and jewelry reflections.",
+    "capture": "Cinematic lens ~50mm equiv, shallow depth f/2.8, ISO ~200, shutter 1/250s, WB 6000K with blue tint. Shot on Canon EOS R5, natural color grading, realistic human skin pores, lens blur bokeh, subtle film grain texture, ultra-realistic human photography.",
+    "composition": "Subject off-center with leading lines of balcony arches; curtain motion adding softness; keep face and eyes as focal point.",
+    "retouching": "Preserve fabric translucency and warm light texture; gentle smoothing but retain skin realism.",
+    "avoid": "Excessive glamour lighting, harsh shadows, or modern elements like glass railing or city skyline."
   }
 }

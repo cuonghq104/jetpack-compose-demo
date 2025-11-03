@@ -1,51 +1,47 @@
 {
   "scene": {
-    "description": "Dining room aboard the Cruise Ship, captured through a mirror selfie.",
-    "environment": "Wood-paneled ship interior with nautical decor — hanging lanterns, wooden beams, round ship windows showing the sea, and a large dining table with plates and mugs scattered around.",
-    "mood": "Lively, carefree, and adventurous — the atmosphere of a joyful pirate crew at sea."
+    "description": "A photorealistic portrait of a real man in a snow-covered forest near Winterfell; faint mist drifts among pine trunks.",
+    "environment": "Icy northern woods with frost-covered branches and scattered wolf tracks in the snow.",
+    "mood": "Disciplined, solemn, and quietly honorable — the silence of a Northern warrior who has seen too much."
   },
   "aesthetic": {
-    "style": "Authentic smartphone mirror selfie on a ship.",
-    "look": "Bright daylight filtering from portholes; warm maritime tones; realistic texture and depth; filmic natural contrast."
+    "style": "Cinematic fantasy realism in the tone of Game of Thrones.",
+    "look": "Cold bluish tone, strong northern contrast, faint fog diffusion, visible snow flurries; fine cinematic depth of field."
   },
   "lighting": {
-    "description": "Natural sunlight streaming in from the ship’s windows with a warm bounce off wooden surfaces; subtle fill from mirror reflection for facial clarity; maintain believable shadows and reflections."
+    "description": "Overcast daylight filtered through mist; soft, cold ambient fill from snow; subtle rim light defining silhouette edges."
   },
   "subject": {
     "demographics": {
-      "ethnicity": "Mexican",
-      "age": "young adult",
-      "build": "Lean and athletic with energetic posture."
+      "ethnicity": "Mixed Westerosi–East Blue",
+      "age": "25",
+      "build": "Athletic, lean, defined by a swordsman's discipline."
     },
     "appearance": {
-      "hair": "Messy black hair with strands peeking out from under his straw hat.",
-      "skin": "Warm tan complexion with natural sheen; minimal retouching to retain lively character."
+      "hair": "Dark moss-green, slightly frosted at tips; windswept strands across forehead.",
+      "skin": "Fair northern complexion with faint battle scars.",
+      "expression": "Calm intensity, eyes half-closed as if listening to the wind."
     },
     "pose": {
-      "type": "Mirror selfie, standing casually.",
-      "action": "Witty, wide happy grin with one hand holding the phone and the other making a peace sign; leaning slightly toward the mirror with relaxed confidence.",
-      "framing": "Waist-up 3:4 vertical shot; slightly off-center composition to include ship background."
+      "type": "Seated battle rest.",
+      "action": "Sitting on a snow-dusted log; two swords planted blade-first into the ground before him; the third resting across his shoulder.",
+      "framing": "Medium shot, waist-up or slightly wider; centered with slight diagonal composition; mist and snow depth in background."
     },
     "wardrobe": {
-      "top": "Open red shirt with casual pirate detailing suitable for a captain.",
-      "bottom": "Classic blue jeans with slightly rolled cuffs.",
-      "cloak": "Black cloak draped over shoulders, slightly flowing with a worn leather texture.",
-      "headgear": "Iconic straw hat sitting slightly tilted on his head."
-    },
-    "accessories": {
-      "jewelry": "Simple beaded bracelet on one wrist.",
-      "phone": "Smartphone with worn leather case, reflecting ship life aesthetic."
+      "outerwear": "Thick gray wolf-fur cloak with Stark insignia clasp at collar.",
+      "armor": "Layered northern leather vest reinforced with steel plates.",
+      "accessories": "Dark green headband tied at the back; belt carrying three scabbards with distinct hilts."
     }
   },
   "props_in_scene": {
-    "background": "Dining table with half-eaten food, tankards, and utensils; crewmates’ shadows or laughter subtly visible in reflection; hanging lanterns and ship ropes visible in soft focus.",
-    "details": "Include reflections of ship wood grain and light glints from the sea through the window."
+    "background": "Winter forest with pine trees fading into mist; faint ruins of a watchtower in distance.",
+    "foreground": "Snow-covered log and swords with snowflake sparkle detail."
   },
   "camera_technical": {
-    "requirements": "Correct mirror reversal; maintain natural body proportions; no duplicated phones/hands.",
-    "capture": "Smartphone wide lens ~24–26mm equiv, f/1.8 look, ISO ~250, 1/125s, WB 4200–4400K.",
-    "composition": "Subject centered with slight lean; keep fur texture readable; ensure phone and hand pose feel natural.",
-    "retouching": "Clean minor blemishes only; preserve fabric micro-wrinkles and fur fibers; avoid haloing.",
-    "avoid": "Warped doors, heavy vignettes, oversharpening, cartoon smoothing, text/watermarks."
+    "requirements": "Maintain realistic anatomy; visible breath vapor; accurate sword reflection behavior.",
+  "capture": "Cinematic lens ~50mm equiv, shallow depth f/2.8, ISO ~200, shutter 1/250s, WB 6000K with blue tint. Shot on Canon EOS R5, natural color grading, realistic human skin pores, lens blur bokeh, subtle film grain texture, ultra-realistic human photography."
+    "composition": "Subject centered, slight left lean; depth layered with fog and snow particles; swords lead eye into frame.",
+    "retouching": "Preserve natural textures of fur, metal, and snow; avoid digital smoothness.",
+    "avoid": "Modern elements, bright fantasy armor, exaggerated anime features, or visible text/logos."
   }
 }
