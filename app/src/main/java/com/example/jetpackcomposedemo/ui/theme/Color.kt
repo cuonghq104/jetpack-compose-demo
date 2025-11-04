@@ -16,6 +16,7 @@ val Pink40 = Color(0xFF7D5260)
 object AppColor {
     val Blue = Color(0xFF3F51B5)
     val Green = Color(0xFF4CAF50)
+    val Red = Color(0xFFF44336)
     val Blue50 = Color(0xFFd4bff9)
     val Green50 = Color(0xFFdefabb)
     val Red50 = Color(0xFFffc8b9)

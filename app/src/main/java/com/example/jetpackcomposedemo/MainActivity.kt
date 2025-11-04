@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
@@ -40,6 +42,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -57,10 +60,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -87,13 +95,24 @@ fun MainActivityContent() {
     JetpackComposeDemoTheme {
         NavHost(
             navController = navController,
-            startDestination = "home"
+            startDestination = "home",
+            route = "root"
         ) {
-            composable("home") {
-                ListScreenContent(navController)
+            composable("home") { backStackEntry ->
+                val parentEntry = remember(backStackEntry) {
+                    navController.getBackStackEntry("root")
+                }
+                val viewModel: MainViewModel = viewModel(parentEntry)
+
+                ListScreenContent(navController, viewModel)
             }
-            composable("detail") {
-                DetailContent(navController)
+            composable("detail") { backStackEntry ->
+                val parentEntry = remember(backStackEntry) {
+                    navController.getBackStackEntry("root")
+                }
+                val viewModel: MainViewModel = viewModel(parentEntry)
+
+                DetailContent(navController, viewModel)
             }
         }
     }
@@ -101,7 +120,7 @@ fun MainActivityContent() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListScreenContent(navController: NavController?, viewModel: MainViewModel = MainViewModel()) {
+fun ListScreenContent(navController: NavController?, viewModel: MainViewModel) {
     var galleryMode by remember { mutableStateOf(false) }
     val contactList by viewModel.contactList.observeAsState()
 
@@ -110,14 +129,6 @@ fun ListScreenContent(navController: NavController?, viewModel: MainViewModel = 
             FloatingActionButton(
                 onClick = {
                     navController?.navigate("detail")
-//                    viewModel.addContact(
-//                        Contact(
-//                            "1",
-//                            "Demo",
-//                            "0123456789",
-//                            cardColor = Color.Yellow
-//                        )
-//                    )
                 },
             ) {
                 Icon(
@@ -288,18 +299,21 @@ fun ContactCard(contact: Contact) {
 }
 
 @Composable
-fun DetailContent(navController: NavController?) {
+fun DetailContent(navController: NavController?, viewModel: MainViewModel) {
     var name by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     var selectedColor by remember { mutableStateOf<Color>(AppColor.Blue50) }
+    val focusManager = LocalFocusManager.current
 
 
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = { focusManager.clearFocus() })
+                }
                 .padding(innerPadding)
                 .fillMaxSize()
-                .background(AppColor.Green)
                 .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -335,21 +349,35 @@ fun DetailContent(navController: NavController?) {
                                 Box(
                                     modifier = Modifier
                                         .size(64.dp)
+                                        .clip(RoundedCornerShape(8.dp))
                                         .background(color)
+                                        .border(
+                                            width = if (selectedColor == color) 5.dp else 0.dp,
+                                            color = MaterialTheme.colorScheme.primary
+                                        )
                                         .clickable {
                                             selectedColor = color
                                         }
-                                        .border(
-                                            width = if (selectedColor == color) 5.dp else 0.dp,
-                                            color = Color.Blue
-                                        )
+                                        .zIndex(5f)
                                 )
                             }
                         }
 
                     }
                 }
+            }
 
+            Button(
+                onClick = {
+                    viewModel.addContact(Contact("1", name, phoneNumber, selectedColor))
+                    navController?.popBackStack()
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Save contact",
+                    style = MaterialTheme.typography.titleSmall
+                )
             }
         }
     }
@@ -358,25 +386,27 @@ fun DetailContent(navController: NavController?) {
 @Composable
 fun AppInputField(label: String, inputValue: String, onInputChange: (String) -> Unit) {
     Column {
-        Text(text = label, style = MaterialTheme.typography.titleMedium, color = Color.Blue)
-        TextField(
+        OutlinedTextField(
             value = inputValue,
             onValueChange = onInputChange,
             modifier = Modifier
                 .padding(top = 8.dp)
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            label = {
+                Text(text = label, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+            },
         )
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomePreview() {
-    ListScreenContent(null)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun HomePreview() {
+//    ListScreenContent(null)
+//}
 
 @Preview(showBackground = true)
 @Composable
 fun DetailPreview() {
-    DetailContent(null)
+    DetailContent(null, MainViewModel())
 }

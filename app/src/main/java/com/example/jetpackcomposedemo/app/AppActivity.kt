@@ -6,12 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ColorScheme
@@ -29,11 +34,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
@@ -41,8 +51,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposedemo.DetailContent
 import com.example.jetpackcomposedemo.ListScreenContent
+import com.example.jetpackcomposedemo.R
 import com.example.jetpackcomposedemo.app.spend.SpendScreen
+import com.example.jetpackcomposedemo.app.spend.components.AddOverlayWindows
 import com.example.jetpackcomposedemo.app.ui.theme.JetpackComposeDemoTheme
+import com.example.jetpackcomposedemo.ui.theme.AppColor
 
 data class Destination(
     val icon: ImageVector,
@@ -71,65 +84,74 @@ class AppActivity : ComponentActivity() {
 fun AppContent() {
     val selectedDestination by remember { mutableIntStateOf(0) }
     val navController = rememberNavController()
+    var showAddOverlay by remember { mutableStateOf(true) }
 
     JetpackComposeDemoTheme {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            bottomBar = {
-                NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
-                    destinationList.forEachIndexed { index, destination ->
-                        if (index != 1) {
-                            NavigationBarItem(
-                                selected = selectedDestination == index,
-                                onClick = {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                bottomBar = {
+                    NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
+                        destinationList.forEachIndexed { index, destination ->
+                            if (index != 1) {
+                                NavigationBarItem(
+                                    selected = selectedDestination == index,
+                                    onClick = {
 //                                navController.navigate(route = destination.route)
 //                                selectedDestination = index
-                                },
-                                icon = {
-                                    Icon(
-                                        imageVector = destination.icon,
-                                        contentDescription = destination.contentDescription
-                                    )
-                                },
-                                label = { Text(destination.label) }
-                            )
-                        } else {
-                            IconButton(
-                                onClick = {
-
-                                },
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(MaterialTheme.colorScheme.primary)
-                                    .clickable {
-
-                                    }
-                                    .shadow(elevation = 8.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Add,
-                                    contentDescription = destination.contentDescription,
-                                    tint = Color.White
+                                    },
+                                    icon = {
+                                        Icon(
+                                            imageVector = destination.icon,
+                                            contentDescription = destination.contentDescription
+                                        )
+                                    },
+                                    label = { Text(destination.label) },
+                                    modifier = Modifier.weight(2f)
                                 )
+                            } else {
+                                IconButton(
+                                    onClick = {
+                                        showAddOverlay = true
+                                    },
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(MaterialTheme.colorScheme.primary)
+                                        .clickable {
+
+                                        }
+                                        .shadow(elevation = 8.dp)
+                                        .weight(1f)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Add,
+                                        contentDescription = destination.contentDescription,
+                                        tint = Color.White
+                                    )
+                                }
                             }
                         }
                     }
                 }
-            }
-        ) { innerPadding ->
-            Surface(modifier = Modifier.padding(innerPadding)) {
-                NavHost(
-                    navController = navController,
-                    startDestination = "spend"
-                ) {
-                    composable("spend") {
-                        SpendScreen()
-                    }
-                    composable("task") {
-                        DetailContent(navController)
+            ) { innerPadding ->
+                Surface(modifier = Modifier.padding(innerPadding)) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = "spend"
+                    ) {
+                        composable("spend") {
+                            SpendScreen()
+                        }
+                        composable("task") {
+                            SpendScreen()
+                        }
                     }
                 }
+            }
+
+            AddOverlayWindows(overlayVisible = showAddOverlay) {
+                showAddOverlay = false
             }
         }
     }
