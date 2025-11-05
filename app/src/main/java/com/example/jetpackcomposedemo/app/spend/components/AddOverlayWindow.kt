@@ -44,13 +44,16 @@ import com.example.jetpackcomposedemo.ui.theme.AppColor
 fun AddOverlayWindowsPreview() {
     AddOverlayWindows(true, onCloseOverlayClick = {
 
+    }, onNewTransactionClick = {
+
     })
 }
 
 @Composable
 fun AddOverlayWindows(
     overlayVisible: Boolean,
-    onCloseOverlayClick: () -> Unit
+    onCloseOverlayClick: () -> Unit,
+    onNewTransactionClick: () -> Unit
 ) {
     val transition = updateTransition(targetState = overlayVisible, label = "overlayTransition")
     val scale by transition.animateFloat(
@@ -120,9 +123,7 @@ fun AddOverlayWindows(
                 }
 
                 IconButton(
-                    onClick = {
-                        // TODO:
-                    },
+                    onClick = onNewTransactionClick,
                     modifier = Modifier
                         .padding(start = LocalConfiguration.current.screenWidthDp.dp / 10)
                         .size(LocalConfiguration.current.screenWidthDp.dp / 5)
