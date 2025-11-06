@@ -1,6 +1,9 @@
 package com.example.jetpackcomposedemo.app.spend.newspend
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,8 +15,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.HorizontalDivider
@@ -23,6 +28,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -44,12 +50,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.example.jetpackcomposedemo.app.spend.newspend.components.CategoryLabel
 import com.example.jetpackcomposedemo.app.spend.newspend.components.SpendSection
+import com.example.jetpackcomposedemo.app.spend.newspend.components.SpendSubSection
 import com.example.jetpackcomposedemo.app.spend.newspend.models.Contact
 import com.example.jetpackcomposedemo.app.spend.newspend.models.Transaction
 import com.example.jetpackcomposedemo.app.spend.spendTabList
 import com.example.jetpackcomposedemo.common.AppScreen
+import com.example.jetpackcomposedemo.extensions.bottomBorder
 import com.example.jetpackcomposedemo.ui.theme.AppColor
+import com.example.jetpackcomposedemo.ui.theme.getCategoryColor
 
 data class TransactionType(
     val id: String,
@@ -70,14 +80,18 @@ fun TextFieldWithDropdown(
     value: String,
     onValueChange: (String) -> Unit,
     onDismissRequest: () -> Unit,
-    dropDownExpanded: Boolean,
     list: List<String>,
     label: String = ""
 ) {
+    var dropDownExpanded by remember { mutableStateOf(false) }
+
     Box(modifier) {
         OutlinedTextField(
             value = value,
-            onValueChange = onValueChange,
+            onValueChange = {
+                dropDownExpanded = true
+                onValueChange(it)
+            },
             modifier = modifier,
             placeholder = {
                 Text(text = label)
@@ -87,10 +101,10 @@ fun TextFieldWithDropdown(
                     imageVector = Icons.Filled.AccountBox,
                     contentDescription = "destination"
                 )
-            }
+            },
         )
         DropdownMenu(
-            expanded = true,
+            expanded = dropDownExpanded,
             properties = PopupProperties(
                 focusable = false,
                 dismissOnBackPress = true,
@@ -108,7 +122,14 @@ fun TextFieldWithDropdown(
 
                 ) {
                 list.forEachIndexed { index, text ->
-                    Column(modifier = Modifier.fillMaxWidth().padding(4.dp)) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(4.dp)
+                            .clickable {
+                                dropDownExpanded = false
+                            }
+                    ) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Text(
                                 text = "Cô bán bánh tráng",
@@ -157,6 +178,7 @@ fun TextFieldWithDropdown(
 fun NewSpendScreen() {
     var selectedTransactionType by remember { mutableStateOf("in") }
     var selectedPrimaryColor by remember { mutableStateOf(AppColor.Blue) }
+    var category by remember { mutableStateOf(false) }
 
 
     var formState by remember {
@@ -224,7 +246,6 @@ fun NewSpendScreen() {
                         onDismissRequest = {
 
                         },
-                        dropDownExpanded = true,
                         list = listOf("aaa", "bbb", "ccc"),
                         label = "Name",
                         modifier = Modifier
@@ -254,6 +275,62 @@ fun NewSpendScreen() {
                             style = MaterialTheme.typography.labelMedium
                         )
 
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .bottomBorder(1.dp, AppColor.Gray300)
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (!category) {
+                            Text(
+                                text = "Select category",
+                                modifier = Modifier
+                                    .weight(1f),
+                                style = MaterialTheme.typography.labelMedium
+                            )
+                        } else {
+                            CategoryLabel("transport")
+                            Text(
+                                text = "Đổ xăng",
+                                modifier = Modifier
+                                    .padding(start = 8.dp)
+                                    .weight(1f),
+                                style = MaterialTheme.typography.labelSmall
+                            )
+                        }
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                            tint = Color.Black,
+                            contentDescription = "Arrow Right",
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .bottomBorder(1.dp, AppColor.Gray300)
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Date",
+                            modifier = Modifier
+                                .weight(1f),
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                        Text(
+                            text = "Today",
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(16.dp))
+                                .background(MaterialTheme.colorScheme.primary)
+                                .padding(horizontal = 8.dp, vertical = 4.dp),
+                            color = AppColor.White,
+                            style = MaterialTheme.typography.labelSmall
+                        )
                     }
 
                 }

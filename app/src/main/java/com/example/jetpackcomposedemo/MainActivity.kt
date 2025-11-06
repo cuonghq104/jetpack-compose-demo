@@ -342,7 +342,7 @@ fun DetailContent(navController: NavController?, viewModel: MainViewModel) {
                 Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     for (groupColor in listOf(
                         AppColor.Blue50, AppColor.Green50, AppColor.Pink50,
-                        AppColor.Cyan50, AppColor.Orange50, AppColor.Red50
+                        AppColor.Cyan50, AppColor.Orange50, AppColor.Red100
                     ).chunked(3)) {
                         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                             for (color in groupColor) {

@@ -10,12 +10,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SpendSection(title: String, modifier: Modifier?, content: @Composable () -> Unit) {
+fun SpendSection(title: String, modifier: Modifier? = Modifier, content: @Composable () -> Unit) {
     Column(modifier = modifier ?: Modifier) {
         Text(
             text = title,
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(vertical = 8.dp)
+        )
+        content()
+    }
+}
+
+@Composable
+fun SpendSubSection(title: String, modifier: Modifier? = Modifier, content: @Composable () -> Unit) {
+    Column(modifier = modifier ?: Modifier) {
+        Text(
+            text = title,
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(vertical = 8.dp)
         )
