@@ -4,8 +4,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,17 +16,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -31,6 +40,7 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -45,7 +55,9 @@ import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
@@ -53,6 +65,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetpackcomposedemo.app.spend.newspend.components.CategoryLabel
 import com.example.jetpackcomposedemo.app.spend.newspend.components.SpendSection
 import com.example.jetpackcomposedemo.app.spend.newspend.components.SpendSubSection
+import com.example.jetpackcomposedemo.app.spend.newspend.components.TagButton
+import com.example.jetpackcomposedemo.app.spend.newspend.components.TagButtonType
 import com.example.jetpackcomposedemo.app.spend.newspend.models.Contact
 import com.example.jetpackcomposedemo.app.spend.newspend.models.Transaction
 import com.example.jetpackcomposedemo.app.spend.spendTabList
@@ -64,13 +78,12 @@ import com.example.jetpackcomposedemo.ui.theme.getCategoryColor
 data class TransactionType(
     val id: String,
     val title: String,
-    val color: Color,
-    val inactiveColor: Color
 )
 
+
 val transactionTypes = listOf(
-    TransactionType("in", "Money in", AppColor.Blue, AppColor.Blue50),
-    TransactionType("out", "Money out", AppColor.Green, AppColor.Green50)
+    TransactionType("in", "Money in"),
+    TransactionType("out", "Money out")
 )
 
 @Composable
@@ -86,7 +99,10 @@ fun TextFieldWithDropdown(
     var dropDownExpanded by remember { mutableStateOf(false) }
 
     Box(modifier) {
-        OutlinedTextField(
+        TextField(
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            ),
             value = value,
             onValueChange = {
                 dropDownExpanded = true
@@ -177,7 +193,6 @@ fun TextFieldWithDropdown(
 @Composable
 fun NewSpendScreen() {
     var selectedTransactionType by remember { mutableStateOf("in") }
-    var selectedPrimaryColor by remember { mutableStateOf(AppColor.Blue) }
     var category by remember { mutableStateOf(false) }
 
 
@@ -188,10 +203,24 @@ fun NewSpendScreen() {
             )
         )
     }
-    val localColorScheme = MaterialTheme.colorScheme.copy(
-        primary = selectedPrimaryColor,
-        onPrimary = Color.White
-    )
+    val localColorScheme =
+        if (selectedTransactionType == "in")
+            MaterialTheme.colorScheme.copy(
+                primary = AppColor.Blue900,
+                onPrimary = AppColor.Blue50,
+                primaryContainer = AppColor.Blue100,
+                secondary = AppColor.Green900,
+                onSecondary = AppColor.Green50,
+                secondaryContainer = AppColor.Blue100
+            )
+        else MaterialTheme.colorScheme.copy(
+            primary = AppColor.Green900,
+            onPrimary = AppColor.Green50,
+            primaryContainer = AppColor.Green100,
+            secondary = AppColor.Blue900,
+            onSecondary = AppColor.Blue50,
+            secondaryContainer = AppColor.Green100
+        )
 
 
     MaterialTheme(colorScheme = localColorScheme) {
@@ -213,7 +242,6 @@ fun NewSpendScreen() {
                             ),
                             onClick = {
                                 selectedTransactionType = item.id
-                                selectedPrimaryColor = item.color
                             },
                             selected = selectedTransactionType == item.id,
                             label = {
@@ -223,8 +251,8 @@ fun NewSpendScreen() {
 
                             },
                             colors = SegmentedButtonDefaults.colors(
-                                activeContainerColor = item.color,
-                                inactiveContainerColor = Color.LightGray
+                                activeContainerColor = localColorScheme.primary,
+                                inactiveContainerColor = localColorScheme.secondaryContainer
                             )
                         )
                     }
@@ -284,38 +312,6 @@ fun NewSpendScreen() {
                             .padding(vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (!category) {
-                            Text(
-                                text = "Select category",
-                                modifier = Modifier
-                                    .weight(1f),
-                                style = MaterialTheme.typography.labelMedium
-                            )
-                        } else {
-                            CategoryLabel("transport")
-                            Text(
-                                text = "Đổ xăng",
-                                modifier = Modifier
-                                    .padding(start = 8.dp)
-                                    .weight(1f),
-                                style = MaterialTheme.typography.labelSmall
-                            )
-                        }
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
-                            tint = Color.Black,
-                            contentDescription = "Arrow Right",
-                            modifier = Modifier.size(16.dp)
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .bottomBorder(1.dp, AppColor.Gray300)
-                            .padding(vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
                         Text(
                             text = "Date",
                             modifier = Modifier
@@ -333,6 +329,135 @@ fun NewSpendScreen() {
                         )
                     }
 
+                    SpendSection(
+                        title = "Amount"
+                    ) {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            TextField(
+                                value = "abc",
+                                onValueChange = {
+
+                                },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(64.dp),
+                                singleLine = true,
+                                trailingIcon = {
+                                    Text(
+                                        "000 ₫",
+                                        modifier = Modifier.padding(horizontal = 8.dp),
+                                        style = MaterialTheme.typography.titleLarge,
+                                        color = AppColor.Gray500
+                                    )
+                                },
+                                textStyle = MaterialTheme.typography.titleLarge,
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                colors = TextFieldDefaults.colors(
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer
+                                )
+                            )
+                            OutlinedButton(
+                                onClick = {
+
+                                },
+                                modifier = Modifier
+                                    .padding(start = 12.dp)
+                                    .weight(1f)
+                                    .height(64.dp),
+                                shape = RoundedCornerShape(4.dp),
+                                contentPadding = PaddingValues(horizontal = 4.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                                        tint = Color.Black,
+                                        contentDescription = "Arrow Right",
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                    Text(
+                                        "Food & drink",
+                                        modifier = Modifier.weight(1f),
+                                        textAlign = TextAlign.Center,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                    Icon(
+                                        imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                                        tint = Color.Black,
+                                        contentDescription = "Arrow Right",
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
+                            }
+                        }
+
+                        Row(
+                            modifier = Modifier
+                                .padding(top = 8.dp)
+                                .fillMaxWidth()
+                                .bottomBorder(1.dp, AppColor.Gray300)
+                                .padding(vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            if (!category) {
+                                Text(
+                                    text = "Select detail category",
+                                    modifier = Modifier
+                                        .weight(1f),
+                                    style = MaterialTheme.typography.labelMedium
+                                )
+                            } else {
+                                CategoryLabel("transport")
+                                Text(
+                                    text = "Đổ xăng",
+                                    modifier = Modifier
+                                        .padding(start = 8.dp)
+                                        .weight(1f),
+                                    style = MaterialTheme.typography.labelSmall
+                                )
+                            }
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                                tint = Color.Black,
+                                contentDescription = "Arrow Right",
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+
+                        FlowRow(
+                            modifier = Modifier.padding(top = 12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            listOf("Eat out", "Fast food", "Death", "With friends").map { it ->
+                                TagButton(TagButtonType.TAG, it) {
+
+                                }
+                            }
+                            TagButton(TagButtonType.ADD, "Add tag") {
+
+                            }
+                        }
+                    }
+
+                    Button(
+                        onClick = {
+
+                        },
+                        modifier = Modifier
+                            .padding(top = 12.dp)
+                            .fillMaxWidth(),
+                        shape = RoundedCornerShape(4.dp)
+                    ) {
+                        Text(
+                            "Add transaction",
+                            color = MaterialTheme.colorScheme.onPrimary,
+                        )
+                    }
                 }
             }
         }

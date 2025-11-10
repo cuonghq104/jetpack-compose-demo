@@ -1,47 +1,49 @@
 {
   "scene": {
-    "description": "A photorealistic portrait of a real man in a snow-covered forest near Winterfell; faint mist drifts among pine trunks.",
-    "environment": "Icy northern woods with frost-covered branches and scattered wolf tracks in the snow.",
-    "mood": "Disciplined, solemn, and quietly honorable — the silence of a Northern warrior who has seen too much."
+    "description": "Full-body poster illustration of a confident character walking toward the camera in slow-motion style, chaos and explosions behind.",
+    "environment": "Abandoned industrial district near Los Santos Docks. Fire from a recent explosion lights up shipping containers and graffiti walls; sparks rain down behind him.",
+    "mood": "Confident, gritty, cinematic; tension-filled mercenary vibe."
   },
   "aesthetic": {
-    "style": "Cinematic fantasy realism in the tone of Game of Thrones.",
-    "look": "Cold bluish tone, strong northern contrast, faint fog diffusion, visible snow flurries; fine cinematic depth of field."
+    "style": "Rockstar Games GTA V poster illustration — semi-realistic stylized painting with cinematic composition, smooth airbrushed gradients, soft shadows, and bold visual contrast.",
+    "look": "Realistic facial anatomy and proportions, slightly stylized clothing and environment, warm sunset palette, smooth tonal transitions, minimal flat vector effects, subtle stylization rather than cartoon."
   },
   "lighting": {
-    "description": "Overcast daylight filtered through mist; soft, cold ambient fill from snow; subtle rim light defining silhouette edges."
+    "description": "Sunset orange and purple skyline casting dramatic side-light on character; subtle reflections from fire and sparks; maintain realistic highlights and shadows."
   },
   "subject": {
     "demographics": {
-      "ethnicity": "Mixed Westerosi–East Blue",
-      "age": "25",
-      "build": "Athletic, lean, defined by a swordsman's discipline."
+      "ethnicity": "East Asian",
+      "age": "late 20s",
+      "build": "Athletic, broad shoulders, agile"
     },
     "appearance": {
-      "hair": "Dark moss-green, slightly frosted at tips; windswept strands across forehead.",
-      "skin": "Fair northern complexion with faint battle scars.",
-      "expression": "Calm intensity, eyes half-closed as if listening to the wind."
+      "hair": "Tousled blonde hair, realistic human texture, natural movement from wind and explosions",
+      "skin": "Natural, slightly tanned, realistic skin texture",
     },
     "pose": {
-      "type": "Seated battle rest.",
-      "action": "Sitting on a snow-dusted log; two swords planted blade-first into the ground before him; the third resting across his shoulder.",
-      "framing": "Medium shot, waist-up or slightly wider; centered with slight diagonal composition; mist and snow depth in background."
+      "type": "Walking toward camera in slow motion",
+      "action": "Holding a duffel bag in one hand, weapon in other; walking confidently past explosion",
+      "framing": "Full-body centered, dynamic low-angle shot; sparks and fire blur behind"
     },
     "wardrobe": {
-      "outerwear": "Thick gray wolf-fur cloak with Stark insignia clasp at collar.",
-      "armor": "Layered northern leather vest reinforced with steel plates.",
-      "accessories": "Dark green headband tied at the back; belt carrying three scabbards with distinct hilts."
+      "top": "Black leather biker jacket with zipper details, slightly worn",
+      "bottom": "Dark fitted jeans with subtle distressing",
+      "footwear": "High-top sneakers or tactical boots, urban street style"
+    },
+    "accessories": {
+      "weapon": "Subtle GTA-style assault rifle or duffel bag full of gear"
     }
   },
   "props_in_scene": {
-    "background": "Winter forest with pine trees fading into mist; faint ruins of a watchtower in distance.",
-    "foreground": "Snow-covered log and swords with snowflake sparkle detail."
+    "background": "Industrial shipping containers with graffiti, fire illuminating walls, sparks raining down, abandoned dock textures",
+    "foreground": "Motion-blur debris emphasizing explosion impact"
   },
   "camera_technical": {
-    "requirements": "Maintain realistic anatomy; visible breath vapor; accurate sword reflection behavior.",
-  "capture": "Cinematic lens ~50mm equiv, shallow depth f/2.8, ISO ~200, shutter 1/250s, WB 6000K with blue tint. Shot on Canon EOS R5, natural color grading, realistic human skin pores, lens blur bokeh, subtle film grain texture, ultra-realistic human photography."
-    "composition": "Subject centered, slight left lean; depth layered with fog and snow particles; swords lead eye into frame.",
-    "retouching": "Preserve natural textures of fur, metal, and snow; avoid digital smoothness.",
-    "avoid": "Modern elements, bright fantasy armor, exaggerated anime features, or visible text/logos."
+    "requirements": "Illustration in GTA V poster style — semi-realistic, cinematic painting, emphasize realistic human anatomy with stylized clothing and environment; avoid flat vector/cartoon exaggeration.",
+    "capture": "Illustration composition — eye to slightly low angle; wide cinematic 16:9 framing.",
+    "composition": "Hero silhouette centered with skyline and sunset gradient behind; car and railing forming diagonal visual anchors; balance between warm tones and dark clothing contrast.",
+    "retouching": "Clean digital-paint finish; smooth gradients; subtle stylization; poster-grade cinematic contrast.",
+    "avoid": "Cartoon vector style, anime proportions, flat color blocks, exaggerated facial features, text/logo elements."
   }
 }
