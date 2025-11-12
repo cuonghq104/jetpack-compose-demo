@@ -13,7 +13,6 @@ import com.example.jetpackcomposedemo.ui.theme.AppColor
 @Composable
 fun CategoryBottomSheet(showBottomSheet: Boolean, onHideBottomSheet: () -> Unit) {
     val sheetState = rememberModalBottomSheetState()
-    val categoryList = listOf<>()
     if (showBottomSheet) {
         ModalBottomSheet(
             onDismissRequest = {

@@ -1,6 +1,7 @@
 package com.example.jetpackcomposedemo.app
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,12 +11,17 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposedemo.app.home.AppContent
 import com.example.jetpackcomposedemo.app.spend.newspend.NewSpendScreen
 import com.example.jetpackcomposedemo.app.ui.theme.JetpackComposeDemoTheme
+import com.example.jetpackcomposedemo.data.db.SpendDB
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 data class Destination(
     val icon: ImageVector,
@@ -33,6 +39,12 @@ val destinationList = listOf(
 class AppActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val db = SpendDB.getInstance(applicationContext)
+            val dao = db.spendCategoryDao()
+            val result = dao.getAll()
+            Log.d("TAG", "onCreate: ${result.size}")
+        }
         enableEdgeToEdge()
         setContent {
             JetpackComposeDemoTheme {

@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "tbl_spend_category")
 data class SpendCategory(
-    @PrimaryKey val id: Int,
-    @ColumnInfo(name = "category") val category: String,
-    @ColumnInfo(name = "type") val type: Int,
+    @PrimaryKey val id: Int?,
+    @ColumnInfo(name = "category") val category: String?,
+    @ColumnInfo(name = "type") val type: Int?,
 )
