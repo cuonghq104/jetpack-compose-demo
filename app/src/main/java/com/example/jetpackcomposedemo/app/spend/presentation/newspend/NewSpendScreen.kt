@@ -1,6 +1,7 @@
-package com.example.jetpackcomposedemo.app.spend.newspend
+package com.example.jetpackcomposedemo.app.spend.presentation.newspend
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -26,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,22 +36,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetpackcomposedemo.R
-import com.example.jetpackcomposedemo.app.spend.newspend.components.CategoryLabel
-import com.example.jetpackcomposedemo.app.spend.newspend.components.SpendSection
-import com.example.jetpackcomposedemo.app.spend.newspend.components.TagButton
-import com.example.jetpackcomposedemo.app.spend.newspend.components.TagButtonType
-import com.example.jetpackcomposedemo.app.spend.newspend.components.TextFieldWithDropdown
-import com.example.jetpackcomposedemo.app.spend.newspend.models.Contact
-import com.example.jetpackcomposedemo.app.spend.newspend.models.Transaction
+import com.example.jetpackcomposedemo.app.spend.data.repository.SpendCategoryRepositoryImpl
+import com.example.jetpackcomposedemo.app.spend.data.source.local.CategoryLocalDataSource
+import com.example.jetpackcomposedemo.app.spend.presentation.newspend.components.CategoryLabel
+import com.example.jetpackcomposedemo.app.spend.presentation.newspend.components.SpendSection
+import com.example.jetpackcomposedemo.app.spend.presentation.newspend.components.TagButton
+import com.example.jetpackcomposedemo.app.spend.presentation.newspend.components.TagButtonType
+import com.example.jetpackcomposedemo.app.spend.presentation.newspend.components.TextFieldWithDropdown
+import com.example.jetpackcomposedemo.app.spend.domain.models.Contact
+import com.example.jetpackcomposedemo.app.spend.domain.models.Transaction
+import com.example.jetpackcomposedemo.app.spend.domain.usecases.GetCategoryUseCase
+import com.example.jetpackcomposedemo.app.spend.presentation.newspend.components.CategoryBottomSheet
 import com.example.jetpackcomposedemo.app.spend.spendTabList
 import com.example.jetpackcomposedemo.common.AppScreen
+import com.example.jetpackcomposedemo.data.db.SpendDB
 import com.example.jetpackcomposedemo.extensions.bottomBorder
 import com.example.jetpackcomposedemo.ui.theme.AppColor
 
@@ -65,9 +74,26 @@ val transactionTypes = listOf(
 
 @Composable
 fun NewSpendScreen() {
+    val context = LocalContext.current
+    val factory = remember {
+        NewSpendViewModelFactory(
+            GetCategoryUseCase(
+                SpendCategoryRepositoryImpl(
+                    CategoryLocalDataSource(
+                        SpendDB.getInstance(context = context.applicationContext).spendCategoryDao()
+                    )
+                )
+            )
+        )
+    }
+    val viewModel: NewSpendViewModel = viewModel(factory = factory)
     var selectedTransactionType by remember { mutableStateOf("in") }
     var category by remember { mutableStateOf(false) }
+    var showCategoryBottomSheet by remember { mutableStateOf(false) }
 
+    LaunchedEffect(null) {
+        viewModel.getCategoryList()
+    }
 
     var formState by remember {
         mutableStateOf<Transaction>(
@@ -76,6 +102,7 @@ fun NewSpendScreen() {
             )
         )
     }
+
     val localColorScheme =
         if (selectedTransactionType == "in")
             MaterialTheme.colorScheme.copy(
@@ -98,6 +125,11 @@ fun NewSpendScreen() {
 
     MaterialTheme(colorScheme = localColorScheme) {
         AppScreen(title = "Spend") { innerPadding ->
+            CategoryBottomSheet(
+                viewModel.categoryList.value,
+                showCategoryBottomSheet) {
+                showCategoryBottomSheet = false
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -242,14 +274,19 @@ fun NewSpendScreen() {
                             ) {
                                 Row(
                                     modifier = Modifier
-                                        .fillMaxWidth(),
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            showCategoryBottomSheet = true
+                                        },
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_category_food_drink),
                                         tint = MaterialTheme.colorScheme.onPrimary,
                                         contentDescription = "Arrow Right",
-                                        modifier = Modifier.size(24.dp).padding(2.dp)
+                                        modifier = Modifier
+                                            .size(24.dp)
+                                            .padding(2.dp)
                                     )
                                     Text(
                                         "Food & drink",

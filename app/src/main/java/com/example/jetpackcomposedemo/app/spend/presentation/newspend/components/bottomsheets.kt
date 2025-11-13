@@ -1,38 +1,44 @@
-package com.example.jetpackcomposedemo.app.spend.newspend.components
+package com.example.jetpackcomposedemo.app.spend.presentation.newspend.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.jetpackcomposedemo.data.entities.SpendCategory
 import com.example.jetpackcomposedemo.ui.theme.AppColor
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoryBottomSheet(showBottomSheet: Boolean, onHideBottomSheet: () -> Unit) {
+fun CategoryBottomSheet(
+    categoryData: List<SpendCategory>?,
+    showBottomSheet: Boolean,
+    onHideBottomSheet: () -> Unit
+) {
     val sheetState = rememberModalBottomSheetState()
     var pagerState = rememberPagerState {
         2
@@ -86,11 +92,35 @@ fun CategoryBottomSheet(showBottomSheet: Boolean, onHideBottomSheet: () -> Unit)
                     .height(400.dp)
             ) { index ->
                 if (index == 0) {
-                    Box(
+                    LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(AppColor.Blue900)
-                    )
+                    ) {
+                        items(categoryData ?: listOf()) { item ->
+                            Row(
+                                modifier = Modifier
+                                    .background(
+                                        when (item.type) {
+                                            1 -> AppColor.Red50
+                                            2 -> AppColor.Green50
+                                            3 -> AppColor.Yellow50
+                                            4 -> AppColor.Orange50
+                                            else -> AppColor.Gray400
+                                        }
+                                    )
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                            ) {
+                                Text(item.category ?: "", modifier = Modifier.weight(1f))
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    contentDescription = "Arrow Right",
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+                    }
                 } else {
                     Box(
                         modifier = Modifier
@@ -106,7 +136,7 @@ fun CategoryBottomSheet(showBottomSheet: Boolean, onHideBottomSheet: () -> Unit)
 @Preview(showBackground = true)
 @Composable
 fun CategoryBottomSheetPreview() {
-    CategoryBottomSheet(true) {
+    CategoryBottomSheet(listOf(), true) {
 
     }
 }

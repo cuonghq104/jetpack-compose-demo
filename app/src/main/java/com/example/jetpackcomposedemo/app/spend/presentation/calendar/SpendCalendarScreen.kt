@@ -1,4 +1,4 @@
-package com.example.jetpackcomposedemo.app.spend.calendar
+package com.example.jetpackcomposedemo.app.spend.presentation.calendar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

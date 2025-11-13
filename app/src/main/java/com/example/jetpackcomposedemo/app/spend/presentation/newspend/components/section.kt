@@ -1,4 +1,4 @@
-package com.example.jetpackcomposedemo.app.spend.newspend.components
+package com.example.jetpackcomposedemo.app.spend.presentation.newspend.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

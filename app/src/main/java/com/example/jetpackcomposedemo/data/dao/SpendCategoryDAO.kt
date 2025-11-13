@@ -7,7 +7,7 @@ import com.example.jetpackcomposedemo.data.entities.SpendCategory
 
 @Dao
 interface SpendCategoryDAO {
-    @Query("SELECT * FROM tbl_spend_category")
+    @Query("SELECT * FROM tbl_spend_category ORDER BY type")
     fun getAll(): List<SpendCategory>
 
     @Insert

@@ -1,4 +1,4 @@
-package com.example.jetpackcomposedemo.app.spend.newspend.components
+package com.example.jetpackcomposedemo.app.spend.presentation.newspend.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -9,13 +9,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposedemo.ui.theme.AppColor
 import com.example.jetpackcomposedemo.ui.theme.getCategoryColor
-import java.util.Locale
 
 @Composable
 fun CategoryLabel(category: String) {

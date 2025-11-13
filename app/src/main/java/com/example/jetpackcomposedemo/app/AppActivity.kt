@@ -16,11 +16,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposedemo.app.home.AppContent
-import com.example.jetpackcomposedemo.app.spend.newspend.NewSpendScreen
+import com.example.jetpackcomposedemo.app.spend.presentation.newspend.NewSpendScreen
 import com.example.jetpackcomposedemo.app.ui.theme.JetpackComposeDemoTheme
 import com.example.jetpackcomposedemo.data.db.SpendDB
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 data class Destination(

@@ -23,8 +23,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.jetpackcomposedemo.app.spend.calendar.SpendCalendarScreen
-import com.example.jetpackcomposedemo.app.spend.overview.SpendOverviewScreen
+import com.example.jetpackcomposedemo.app.spend.presentation.calendar.SpendCalendarScreen
+import com.example.jetpackcomposedemo.app.spend.presentation.overview.SpendOverviewScreen
 
 data class SpendTab(val label: String)
 

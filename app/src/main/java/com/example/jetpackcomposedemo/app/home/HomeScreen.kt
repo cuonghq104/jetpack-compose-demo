@@ -34,9 +34,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposedemo.app.destinationList
 import com.example.jetpackcomposedemo.app.spend.SpendScreen
-import com.example.jetpackcomposedemo.app.spend.components.AddOverlayWindows
-import com.example.jetpackcomposedemo.app.spend.newspend.NewSpendScreen
-import com.example.jetpackcomposedemo.app.ui.theme.JetpackComposeDemoTheme
+import com.example.jetpackcomposedemo.app.spend.presentation.components.AddOverlayWindows
+import com.example.jetpackcomposedemo.app.spend.presentation.newspend.NewSpendScreen
 
 
 @Composable

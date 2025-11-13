@@ -1,4 +1,4 @@
-package com.example.jetpackcomposedemo.app.spend.newspend.models
+package com.example.jetpackcomposedemo.app.spend.domain.models
 
 data class Transaction(
     val id: String? = "",
