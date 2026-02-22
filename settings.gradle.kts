@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "JetpackComposeDemo"
 include(":app")
+include(":uikit")
  

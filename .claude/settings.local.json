@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"D:\\\\Project\\\\Android\\\\JetpackCompose\\\\app\\\\src\\\\main\\\\java\\\\com\\\\example\\\\jetpackcomposedemo\\\\bottomsheet\\\\ShimmerView.kt\")",
+      "Bash(Remove-Item \"D:\\\\Project\\\\Android\\\\JetpackCompose\\\\app\\\\src\\\\main\\\\java\\\\com\\\\example\\\\jetpackcomposedemo\\\\bottomsheet\\\\ShimmerView.kt\")"
+    ]
+  }
+}

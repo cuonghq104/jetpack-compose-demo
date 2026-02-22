@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="16dp">
+
+    <!--
+        Outer FrameLayout stacks real UI + shimmer overlay.
+        ShimmerFrameLayout sits on top covering nav bar (48dp) + calendar (296dp) = 344dp.
+    -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- ── Real content (nav bar + calendar) ─────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Month navigation bar -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingHorizontal="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnPrevMonth"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_chevron_left"
+                    android:contentDescription="Previous month" />
+
+                <LinearLayout
+                    android:id="@+id/layoutMonthDropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/tvCurrentMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="February 2026" />
+
+                    <ImageView
+                        android:id="@+id/ivDropdownArrow"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="4dp"
+                        android:src="@drawable/ic_chevron_down"
+                        android:contentDescription="Show month list" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btnNextMonth"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_chevron_right"
+                    android:contentDescription="Next month" />
+
+            </RelativeLayout>
+
+            <!-- Calendar area -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Calendar content shown on GetDateSuccess -->
+                <LinearLayout
+                    android:id="@+id/viewCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <GridLayout
+                        android:id="@+id/gridWeekdays"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:columnCount="7"
+                        android:paddingHorizontal="8dp">
+
+                        <TextView style="@style/WeekdayHeader" android:text="Su" />
+                        <TextView style="@style/WeekdayHeader" android:text="Mo" />
+                        <TextView style="@style/WeekdayHeader" android:text="Tu" />
+                        <TextView style="@style/WeekdayHeader" android:text="We" />
+                        <TextView style="@style/WeekdayHeader" android:text="Th" />
+                        <TextView style="@style/WeekdayHeader" android:text="Fr" />
+                        <TextView style="@style/WeekdayHeader" android:text="Sa" />
+
+                    </GridLayout>
+
+                    <!-- Date grid — fixed 6 rows × 40dp + 5 × 4dp gap = 260dp -->
+                    <GridView
+                        android:id="@+id/gridDates"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp"
+                        android:numColumns="7"
+                        android:horizontalSpacing="0dp"
+                        android:verticalSpacing="4dp"
+                        android:paddingHorizontal="8dp"
+                        android:stretchMode="columnWidth"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+                <!-- Height placeholder so FrameLayout stays 296dp when calendar is gone -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="296dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- ── ShimmerFrameLayout overlay (nav 48dp + calendar 296dp = 344dp) ── -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/viewShimmer"
+            android:layout_width="match_parent"
+            android:layout_height="344dp"
+            android:visibility="visible">
+
+            <!-- Skeleton content: mirrors nav bar + weekday row + 6x7 grid -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp">
+
+                <!-- Nav bar skeleton: [←] [month label] [→] -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <!-- Left chevron pill -->
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_skeleton_rounded" />
+
+                    <!-- Month label pill (centred) -->
+                    <View
+                        android:layout_width="140dp"
+                        android:layout_height="16dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bg_skeleton_rounded" />
+
+                    <!-- Right chevron pill -->
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_skeleton_rounded" />
+
+                </RelativeLayout>
+
+                <!-- Weekday label pills row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <View style="@style/SkeletonWeekday" />
+                    <View style="@style/SkeletonWeekday" />
+                    <View style="@style/SkeletonWeekday" />
+                    <View style="@style/SkeletonWeekday" />
+                    <View style="@style/SkeletonWeekday" />
+                    <View style="@style/SkeletonWeekday" />
+                    <View style="@style/SkeletonWeekday" />
+
+                </LinearLayout>
+
+                <!-- 6 rows of 7 day-cell circles -->
+                <LinearLayout style="@style/SkeletonRow">
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" />
+                </LinearLayout>
+                <LinearLayout style="@style/SkeletonRow">
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" />
+                </LinearLayout>
+                <LinearLayout style="@style/SkeletonRow">
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" />
+                </LinearLayout>
+                <LinearLayout style="@style/SkeletonRow">
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" />
+                </LinearLayout>
+                <LinearLayout style="@style/SkeletonRow">
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" />
+                </LinearLayout>
+                <LinearLayout style="@style/SkeletonRow">
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" /><View style="@style/SkeletonCell" />
+                    <View style="@style/SkeletonCell" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </FrameLayout>
+
+    <!-- Action buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Huỷ"
+            android:textColor="#888888" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn"
+            android:textColor="?attr/colorPrimary" />
+
+    </LinearLayout>
+
+</LinearLayout>

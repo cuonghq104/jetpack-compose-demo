@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.jetpackcomposedemo.MainApplication
 import com.example.jetpackcomposedemo.R
 import com.example.jetpackcomposedemo.app.spend.data.repository.SpendCategoryRepositoryImpl
 import com.example.jetpackcomposedemo.app.spend.data.source.local.CategoryLocalDataSource
@@ -59,6 +60,7 @@ import com.example.jetpackcomposedemo.app.spend.presentation.newspend.components
 import com.example.jetpackcomposedemo.app.spend.spendTabList
 import com.example.jetpackcomposedemo.common.AppScreen
 import com.example.jetpackcomposedemo.data.db.SpendDB
+import com.example.jetpackcomposedemo.data.entities.SpendCategory
 import com.example.jetpackcomposedemo.extensions.bottomBorder
 import com.example.jetpackcomposedemo.ui.theme.AppColor
 
@@ -76,19 +78,11 @@ val transactionTypes = listOf(
 fun NewSpendScreen() {
     val context = LocalContext.current
     val factory = remember {
-        NewSpendViewModelFactory(
-            GetCategoryUseCase(
-                SpendCategoryRepositoryImpl(
-                    CategoryLocalDataSource(
-                        SpendDB.getInstance(context = context.applicationContext).spendCategoryDao()
-                    )
-                )
-            )
-        )
+        (context.applicationContext as MainApplication).appComponent.newSpendViewModelFactory()
     }
     val viewModel: NewSpendViewModel = viewModel(factory = factory)
     var selectedTransactionType by remember { mutableStateOf("in") }
-    var category by remember { mutableStateOf(false) }
+    var selectedCategory by remember { mutableStateOf<SpendCategory?>(null) }
     var showCategoryBottomSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(null) {
@@ -127,8 +121,12 @@ fun NewSpendScreen() {
         AppScreen(title = "Spend") { innerPadding ->
             CategoryBottomSheet(
                 viewModel.categoryList.value,
-                showCategoryBottomSheet) {
-                showCategoryBottomSheet = false
+                showCategoryBottomSheet,
+                selectedCategory != null,
+                onHideBottomSheet = {
+                    showCategoryBottomSheet = false
+                }) { category ->
+                selectedCategory = category
             }
             Column(
                 modifier = Modifier
@@ -313,7 +311,7 @@ fun NewSpendScreen() {
                                 .padding(vertical = 8.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            if (!category) {
+                            if (selectedCategory != null) {
                                 Text(
                                     text = "Select detail category",
                                     modifier = Modifier

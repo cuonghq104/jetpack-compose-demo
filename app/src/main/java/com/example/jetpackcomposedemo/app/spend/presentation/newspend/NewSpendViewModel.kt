@@ -10,8 +10,9 @@ import com.example.jetpackcomposedemo.data.entities.SpendCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class NewSpendViewModel(private val spendCategoryUseCase: GetCategoryUseCase) : ViewModel() {
+class NewSpendViewModel (private val spendCategoryUseCase: GetCategoryUseCase) : ViewModel() {
 
     private var _categoryList = MutableLiveData<List<SpendCategory>>()
     val categoryList: LiveData<List<SpendCategory>> get() = _categoryList
@@ -26,7 +27,7 @@ class NewSpendViewModel(private val spendCategoryUseCase: GetCategoryUseCase) : 
     }
 }
 
-class NewSpendViewModelFactory(
+class NewSpendViewModelFactory @Inject constructor(
     private val spendCategoryUseCase: GetCategoryUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

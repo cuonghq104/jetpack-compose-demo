@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BottomSheetActivity">
+
+    <!-- Container for the 2 rows, centered on screen -->
+    <LinearLayout
+        android:id="@+id/containerRows"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Row 1: Date -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Date"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Clickable date value + chevron indicator -->
+            <LinearLayout
+                android:id="@+id/tvDateWrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select date"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorPrimary"
+                    tools:text="21 Feb 2026" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="?attr/colorPrimary"
+                    android:contentDescription="Select date" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1F000000" />
+
+        <!-- Row 2: Time Slot -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Time Slot"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Clickable time slot value + chevron indicator -->
+            <LinearLayout
+                android:id="@+id/tvTimeSlotWrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/tvTimeSlot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select timeslot"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorPrimary"
+                    tools:text="10:00 - 11:30" />
+
+                <!-- Clickable chevron indicator -->
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:tint="?attr/colorPrimary"
+                    android:contentDescription="Select timeslot" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
